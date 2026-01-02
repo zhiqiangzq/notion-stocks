@@ -35,27 +35,28 @@ def to_yahoo(ticker: str) -> str:
 
 def today_date_str_local() -> str:
     return datetime.now(timezone.utc).astimezone().date().isoformat()
-     def query_all_pages(notion: Client, database_id: str):
-        pages = []
-        cursor = None
-        while True:
-            if cursor:
-                resp = notion.databases.query(
-                    database_id=database_id,
-                    start_cursor=cursor,
-                    page_size=100,
-                )
-            else:
-                resp = notion.databases.query(
-                    database_id=database_id,
-                    page_size=100,
-                )
+
+def query_all_pages(notion: Client, database_id: str):
+    pages = []
+    cursor = None
+    while True:
+        if cursor:
+            resp = notion.databases.query(
+                database_id=database_id,
+                start_cursor=cursor,
+                page_size=100,
+            )
+        else:
+            resp = notion.databases.query(
+                database_id=database_id,
+                page_size=100,
+            )
     
-            pages.extend(resp["results"])
-            if not resp.get("has_more"):
-                break
-            cursor = resp.get("next_cursor")
-        return pages
+        pages.extend(resp["results"])
+        if not resp.get("has_more"):
+            break
+        cursor = resp.get("next_cursor")
+    return pages
 
 
 def get_text_prop(page, prop_name: str) -> str:
@@ -142,4 +143,5 @@ def main():
 
 if __name__ == "__main__":
     main()    
+
 
