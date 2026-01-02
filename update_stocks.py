@@ -85,7 +85,7 @@ def update_page(notion: Client, page_id: str, last_price, change, change_pct, da
 
 def main():
     notion = Client(auth=NOTION_TOKEN)
-    database_id = NOTION_DATA_SOURCE_URL
+    database_id = NOTION_DATABASE_ID
 
     pages = query_all_pages(notion, database_id)
 
@@ -143,6 +143,7 @@ def main():
 
 if __name__ == "__main__":
     main()    
+
 
 
 
