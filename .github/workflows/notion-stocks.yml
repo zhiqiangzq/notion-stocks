@@ -19,9 +19,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip uninstall -y notion-client || true
           pip install --no-cache-dir "notion-client==2.2.1" yfinance pandas
-          python -c "import notion_client; print('notion-client version:', notion_client.__version__)"
+          python -c "import importlib.metadata as m; print('notion-client version:', m.version('notion-client'))"
      
       - name: Run updater
         run: python update_stocks.py
