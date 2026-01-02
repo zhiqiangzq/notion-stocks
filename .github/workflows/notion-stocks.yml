@@ -2,7 +2,7 @@ name: Update Notion Stocks
 
 on:
   schedule:
-    - cron: "0 1 * * *"  # 09:00 Asia/Hong_Kong
+    - cron: "0 1 * * *" # 09:00 Asia/Hong_Kong
   workflow_dispatch:
 
 jobs:
@@ -15,15 +15,14 @@ jobs:
         with:
           python-version: "3.11"
 
-
       - name: Install dependencies
         run: |
           pip install --upgrade pip
           pip install --no-cache-dir "notion-client==2.2.1" yfinance pandas
           python -c "import importlib.metadata as m; print('notion-client version:', m.version('notion-client'))"
-     
+
       - name: Run updater
         run: python update_stocks.py
         env:
-          NOTION_TOKEN: $ secrets.NOTION_TOKEN
+          NOTION_TOKEN: $ secrets.NOTION_TOKEN 
           NOTION_DATABASE_ID: "76fadc188de949aa875d051f4a1f6cf1"
