@@ -7,7 +7,7 @@ from notion_client import Client
 
 NOTION_TOKEN = os.environ["NOTION_TOKEN"]
 NOTION_DATABASE_ID = os.environ["NOTION_DATABASE_ID"]
-print("TOKEN_LEN =", len(NOTION_TOKEN))
+
 
 def hk_to_yahoo(ticker: str) -> str:
     """00291.HK -> 0291.HK（yfinance 常用格式）"""
@@ -145,6 +145,7 @@ def main():
 
 if __name__ == "__main__":
     main()    
+
 
 
 
