@@ -26,4 +26,4 @@ jobs:
         run: python update_stocks.py
         env:
           NOTION_TOKEN: $ secrets.NOTION_TOKEN 
-          NOTION_DATA_SOURCE_URL: "2da912922d24818cb873e62b904afb56"
+          NOTION_DATA_SOURCE_URL: "https://www.notion.so/44ee4ae984ab81ffbb2d000302eb5600/ds/76fadc188de949aa875d051f4a1f6cf1?db=5334cda0444943b196bee4bcd430fe81&source=copy_link"
