@@ -7,8 +7,6 @@ from notion_client import Client
 
 NOTION_TOKEN = os.environ["NOTION_TOKEN"]
 NOTION_DATA_SOURCE_URL = os.environ["NOTION_DATA_SOURCE_URL"]
-
-
 def hk_to_yahoo(ticker: str) -> str:
     """00291.HK -> 0291.HK（yfinance 常用格式）"""
     m = re.fullmatch(r"(\d{4,5})\.HK", ticker.upper())
@@ -37,17 +35,22 @@ def to_yahoo(ticker: str) -> str:
 
 def today_date_str_local() -> str:
     return datetime.now(timezone.utc).astimezone().date().isoformat()
-def query_all_pages(notion: Client, database_id: str):
+ def query_all_pages(notion: Client, database_id: str):
     pages = []
     cursor = None
     while True:
-        resp = notion.databases.query(
-            **{
-                "database_id": database_id,
-                **({"start_cursor": cursor} if cursor else {}),
-                "page_size": 100,
-            }
-        )
+        if cursor:
+            resp = notion.databases.query(
+                database_id=database_id,
+                start_cursor=cursor,
+                page_size=100,
+            )
+        else:
+            resp = notion.databases.query(
+                database_id=database_id,
+                page_size=100,
+            )
+
         pages.extend(resp["results"])
         if not resp.get("has_more"):
             break
@@ -138,4 +141,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main()    
