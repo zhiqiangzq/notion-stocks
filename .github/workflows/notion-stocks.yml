@@ -2,19 +2,16 @@ name: Update Notion Stocks
 
 on:
   schedule:
-    # 每天香港时间 09:00（UTC 01:00）
-    - cron: "0 1 * * *"
+    - cron: "0 1 * * *"  # 09:00 Asia/Hong_Kong
   workflow_dispatch:
 
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
@@ -22,9 +19,9 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install --upgrade "notion-client>=2.2.1" yfinance pandas
-- name: Run updater
-  run: python update_stocks.py
-  env:
-    NOTION_TOKEN: $ secrets.NOTION_TOKEN 
-    # 这里填写你的 Notion 数据源 ID
-    NOTION_DATA_SOURCE_URL: ""
+
+      - name: Run updater
+        run: python update_stocks.py
+        env:
+          NOTION_TOKEN: $ secrets.NOTION_TOKEN 
+          NOTION_DATA_SOURCE_URL: ""
